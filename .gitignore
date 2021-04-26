@@ -1,7 +1,7 @@
 # Project
-esm/
-lib/
-umd/
+#esm/
+#lib/
+#umd/
 
 # GitHub .gitignore for Node
 # Logs
