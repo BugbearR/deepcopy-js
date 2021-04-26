@@ -1,7 +1,7 @@
 {
   "name": "@bugbearr/deepcopy",
   "description": "Deep copy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "BugbearR <bugbearr@gmail.com>",
   "browserslist": [
     "ie 11"
@@ -41,7 +41,7 @@
     }
   },
   "license": "CC0-1.0",
-  "main": "umd/index.js",
+  "main": "lib/index.js",
   "module": "esm/index.js",
   "publishConfig": {
     "access": "public"
