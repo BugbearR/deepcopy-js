@@ -67,26 +67,26 @@ export class DeepCopy
             }
         }
     }
-    
+
     copyImpl(obj: any): any
     {
         if (obj === null)
         {
             return obj;
         }
-    
+
         const objType = typeof obj;
         if (objType !== "object")
         {
             return obj;
         }
-    
+
         const memoObj = this.memo.get(obj);
         if (memoObj)
         {
             return memoObj;
         }
-    
+
         const objTypeStr = Object.prototype.toString.call(obj);
         const typeFunc = this.typeMap.get(objTypeStr);
 
@@ -105,8 +105,9 @@ export class DeepCopy
             this.memo.set(obj, r);
             return r;
         }
-        
+
         r = Object.create(Object.getPrototypeOf(obj));
+        this.memo.set(obj, r);
         const propNames = Object.getOwnPropertyNames(obj);
         propNames.forEach((name) =>
         {
@@ -125,15 +126,14 @@ export class DeepCopy
                 Object.defineProperty(r, name, desc);
             }
         });
-        this.memo.set(obj, r);
         return r;
     }
 
     copy(obj: any): any
     {
-        this.memo.clear();        
+        this.memo.clear();
         const r = this.copyImpl(obj);
-        this.memo.clear();        
+        this.memo.clear();
         return r;
     }
 }

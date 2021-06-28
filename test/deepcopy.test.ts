@@ -39,3 +39,32 @@ test('Object 2 level', () => {
     var b: object = {x:{hello: "world!", foo: 1, bar: true}, y:{baz: false, nan: NaN, "undefined": undefined}};
     expect(deepCopy.copy(a)).toStrictEqual(b);
 });
+
+test('Object reference', () => {
+    const deepCopy = new DeepCopy.DeepCopy();
+    var a: any = {x:{hello: "world!", foo: 1, bar: true}, y:{baz: false, nan: NaN, "undefined": undefined}};
+    a["x"]["yref"] = a["y"];
+    // console.log(JSON.stringify(a["y"]));
+    // console.log(JSON.stringify(a["x"]["yref"]));
+    expect(a["x"]["yref"]).toStrictEqual(a["y"]);
+    expect(a["x"]["yref"] === a["y"]).toBeTruthy();
+    var r: any = deepCopy.copy(a);
+    expect(r["y"]).toStrictEqual(a["y"]);
+    expect(r["x"]["yref"]).toStrictEqual(a["y"]);
+    expect(r["x"]["yref"] === r["y"]).toBeTruthy();
+    expect(r["x"]["hello"]).toStrictEqual(a["x"]["hello"]);
+    expect(r["x"]["foo"]).toStrictEqual(a["x"]["foo"]);
+    expect(r["x"]["bar"]).toStrictEqual(a["x"]["bar"]);
+});
+
+test('Object recursive', () => {
+    const deepCopy = new DeepCopy.DeepCopy();
+    var a: any = {x:{hello: "world!", foo: 1, bar: true}, y:{baz: false, nan: NaN, "undefined": undefined}};
+    a["x"]["xref"] = a["x"];
+    var r: any = deepCopy.copy(a);
+    expect(r["y"]).toStrictEqual(a["y"]);
+    expect(r["x"]["xref"] === r["x"]).toBeTruthy();
+    expect(r["x"]["hello"]).toStrictEqual(a["x"]["hello"]);
+    expect(r["x"]["foo"]).toStrictEqual(a["x"]["foo"]);
+    expect(r["x"]["bar"]).toStrictEqual(a["x"]["bar"]);
+});
