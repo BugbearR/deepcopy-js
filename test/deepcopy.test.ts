@@ -1,4 +1,5 @@
 import * as DeepCopy from "../src/deepcopy";
+import {test, expect} from "@jest/globals";
 
 test('Hello, world!', () => {
     const deepCopy = new DeepCopy.DeepCopy();
